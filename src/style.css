@@ -2,8 +2,16 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Pricedown', 'Arial Black', sans-serif;
 }
+
+@font-face {
+  font-family: 'Pricedown';
+  src: url('/fonts/pricedown.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 body {
   width: 100vw;
@@ -38,6 +46,318 @@ body {
   pointer-events: none;
 }
 
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 56px; /* Ajustado para un padding más estándar */
+  z-index: 1000;
+  background: transparent;
+}
+
+.rockstar-logo {
+  width: 33px; /* Aumentado para mejor visibilidad */
+  height: auto;
+}
+
+.menu-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 17px;
+  cursor: pointer;
+}
+
+.menu-line {
+  width: 100%;
+  height: 6px;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+/* Estilos del menú */
+.menu-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background: black;
+}
+.menu-item:hover {
+  color: #fff9cb; /* Amarillo */
+}
+.menu-container.active {
+  display: flex;
+}
+
+.menu-left-side {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.menu-background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.menu-right-side {
+  width: 50%;
+  padding: 40px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-top-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.menu-nav-tabs {
+  display: flex;
+  gap: 10px;
+}
+
+.menu-item {
+  cursor: pointer;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition : color 0.3s ease;
+  padding: 0.5rem 0;
+}
+
+.menu-item.active {
+color: #fff9cb; 
+  border-bottom: 2px solid #fff9cb;
+}
+
+.character.active {
+  color: #fff9cb;
+}
+.menu-close-btn {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  cursor: pointer;
+}
+
+.menu-close-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  transform-origin: center;
+}
+
+.menu-close-line:nth-child(1) {
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.menu-close-line:nth-child(2) {
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+
+.characters-row {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  line-height: 1.3;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.characters-list .character{
+  margin-bottom: 1rem;
+  font-size: 2rem; /* tamaño que quieras */
+}
+
+.characters-list .character::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em; /* centra verticalmente */
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #ffb0c4; /* rosa GTA */
+  border-radius: 50%;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.characters-list .character:hover::before,
+.characters-list .character.active::before {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.character:hover {
+  color: #fff9cb;
+}
+
+.characters-list {
+  list-style: none;
+}
+
+/* Estilos para el botón de cerrar */
+.menu-close-btn {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  position: relative;
+}
+
+.menu-close-line {
+  width: 100%;
+  height: 3px;
+  background: white;
+  position: absolute;
+  top: 50%;
+}
+
+.menu-close-line:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.menu-close-line:nth-child(2) {
+  transform: rotate(-45deg);
+}
+
+.menu-content {
+  margin-top: 20px;
+}
+
+.menu-characters {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.character {
+  font-size: 1.2rem;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+
+}
+/* Estilos del logo VI y tráiler */
+.vi-logo-animated {
+  width: 200px;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.trailer-button-container {
+  position: absolute;
+  bottom: 20px; /* Mantiene la distancia desde el borde inferior */
+  left: 50%; /* Centra horizontalmente */
+  transform: translateX(-50%); /* Ajusta para centrar perfectamente */
+  z-index: 2;
+  padding: 6rem;
+  transition: opacity 0.5s ease;
+}
+.trailer-button-container.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.trailer-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.trailer-svg-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.trailer-svg-image {
+  width: 100px;
+  height: auto;
+}
+
+.trailer-text {
+  position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -67%);
+    text-transform: uppercase;
+    line-height: 100%;
+    white-space: nowrap;
+    font-family: "GTAFont", Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 0.7rem;
+    color: white;
+    letter-spacing: .3em;
+}
+
+/* Overlay de carga */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+@media (max-width: 768px) {
+  .trailer-button-container {
+    bottom: 10px; /* Menor margen en móviles */
+  }
+  .trailer-svg-image {
+    width: 40px; /* Reduce el tamaño del logo en móviles */
+  }
+  .trailer-text {
+    font-size: 0.9rem; /* Reduce el tamaño del texto */
+  }
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid white;
+  border-top: 5px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Resto de los estilos (sin cambios) */
 .hero-main-container {
   width: 100%;
   height: 100vh;
@@ -54,7 +374,6 @@ body {
 .hero-main-image {
   width: 100%;
   height: 100vh;
-  /* transform: scale(1.25); */
   position: absolute;
   inset: 0;
   object-fit: cover;
@@ -81,7 +400,9 @@ body {
   flex-direction: column;
   gap: 4rem;
   justify-content: center;
+  display: flex;
   align-items: center;
+  text-align: center;
 }
 
 .hero-text-logo {
@@ -93,7 +414,6 @@ body {
   background-repeat: no-repeat;
   background-position: 50% 21.7%;
   background-size: 28vh;
-  background-repeat: no-repeat;
   background-origin: content-box;
   padding-bottom: 200px;
   height: 100vh;
@@ -101,7 +421,15 @@ body {
   inset: 0;
 }
 
-/* Scroll Indicator Styles */
+.hero-text-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -10vh; /* Ajusta según necesidad */
+  transform: translateY(10vh); /* Ajusta el valor según necesidad */
+
+}
+
 .scroll-indicator {
   position: absolute;
   bottom: 10%;
@@ -124,7 +452,7 @@ body {
   text-transform: uppercase;
   background-image: radial-gradient(circle at 50% 65.397vh, rgb(255, 212, 129) 0vh, rgb(237, 69, 109) 50vh, rgb(123, 34, 102) 90vh, rgba(32, 31, 66, 0) 123.501vh);
   -webkit-text-fill-color: transparent;
-  font-size:8rem !important; 
+  font-size: 8rem !important;
   background-clip: text;
   width: 100%;
   line-height: 0.9;
@@ -133,7 +461,7 @@ body {
 
 @media (min-width: 1024px) {
   .hero-text {
-    font-size: 8rem; /* Adjusted for larger screens */
+    font-size: 8rem;
   }
 }
 
@@ -142,7 +470,6 @@ body {
   height: 100vh;
   position: absolute;
   inset: 0;
-  /* z-index: -1; */
   opacity: 0;
   object-fit: cover;
   background-image: radial-gradient(
@@ -161,17 +488,19 @@ body {
   justify-content: center;
   align-items: flex-start;
   text-align: left;
-  padding: 0 2rem; /* mobile */
-  visibility: hidden;
 }
 
 .hero-2-container p {
-  max-width: 90%;
-  font-size: 1rem;
+  font-family: 'Oswald', Arial, Helvetica, sans-serif;
+  font-stretch: expanded;
+  font-size: 2.1rem !important;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
 }
 
 .hero-2-container h3 {
-  font-size: 2.5rem;
+  font-size: 4rem !important;
 }
 
 @media (min-width: 1024px) {
@@ -185,12 +514,12 @@ body {
 
   .hero-2-container {
     margin: 0 auto;
-    max-width: 60%;
+    max-width: 70%;
     padding: 0;
   }
 
   .hero-2-container p {
-    max-width: 90%;
+    max-width: 100%;
     font-size: 2rem;
   }
 
@@ -199,24 +528,26 @@ body {
   }
 }
 
-/* Style for console logos */
 .console-logos {
   display: flex;
   justify-content: center;
-  gap: 1rem; /* Space between logos */
-  margin-top: 2rem; /* Space below text */
-  color: white;
+  gap: 1rem;
+  margin-top: 2rem; /* Espacio entre texto y logos */
+  opacity: 0; /* Inicialmente ocultos */
+  transition: opacity 0.5s ease;
+  color: gray;
+  text-align: center;
 
 }
 
 .console-logos svg {
-  width: 100px; /* Adjust size as needed */
+  width: 100px;
   height: auto;
-  fill: #ffb0c4; /* Match text color */
+  fill: #ffb0c4;
 }
 
 @media (min-width: 1024px) {
   .console-logos svg {
-    width: 170px; /* Larger size for desktop */
+    width: 170px;
   }
 }

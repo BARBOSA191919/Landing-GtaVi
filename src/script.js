@@ -1,6 +1,6 @@
 gsap.registerPlugin(ScrollTrigger);
 
-// First step
+// Animaciones existentes
 gsap.from(".hero-main-container", {
   scale: 1.45,
   duration: 2.8,
@@ -31,7 +31,7 @@ bounceTimeline.to(scrollIndicator, {
   ease: "power1.inOut",
 });
 
-// Create a timeline for better control
+
 const tl = gsap.timeline({
   scrollTrigger: {
     trigger: ".container",
@@ -43,10 +43,28 @@ const tl = gsap.timeline({
   },
 });
 
-// Need to ensure that the scale is like this otherwise some flicks happens
 tl.set(".hero-main-container", {
   scale: 1.25,
 });
+
+
+
+tl.to(".console-logos", {
+  opacity: 1,
+  duration: 1.2, /* Más lento */
+  ease: "power2.out"
+}, ">1.5"); /* Mayor delay */
+
+// PASO 2: Ocultar logos y botón del tráiler al llegar a la segunda sección
+tl.to(
+  [".trailer-button-container", ".console-logos"], 
+  {
+    opacity: 0,
+    duration: 0.5,
+    ease: "power1.out"
+  }, 
+  "<+=0.5" // Medio segundo antes de la transición
+);
 
 tl.to(".hero-main-container", {
   scale: 1,
@@ -59,8 +77,9 @@ tl.to(
     opacity: 0,
     duration: 0.5,
   },
-  "<" // starts at the same time of previous animation
+  "<"
 );
+
 
 tl.to(
   ".hero-main-image",
@@ -70,6 +89,7 @@ tl.to(
   },
   "<+=0.5"
 );
+
 
 tl.to(
   ".hero-main-container",
@@ -98,13 +118,11 @@ tl.fromTo(
        rgba(32, 31, 66, 0) 140.599vh)`,
     duration: 3,
   },
-  "<1.2" // starts 1.2 seconds before the previous animation
+  "<1.2"
 );
 
-// logo purple
 tl.fromTo(
   ".hero-text-logo",
-
   {
     opacity: 0,
     maskImage: `radial-gradient(circle at 50% 145.835%, rgb(0, 0, 0) 36.11%, rgba(0, 0, 0, 0) 68.055%)`,
@@ -120,6 +138,7 @@ tl.fromTo(
   },
   "<0.2"
 );
+
 
 tl.set(".hero-main-container", { opacity: 0 });
 
@@ -139,7 +158,7 @@ tl.to(
     maskImage: `radial-gradient(circle at 50% -40vh, rgb(0, 0, 0) 0vh, rgba(0, 0, 0, 0) 80vh)`,
     duration: 2,
   },
-  "<+=0.2" // Start 0.2 seconds after the mask is set
+  "<+=0.2"
 );
 
 tl.to(
@@ -155,6 +174,7 @@ tl.set(".hero-1-container", { opacity: 0 });
 tl.set(".hero-2-container", { visibility: "visible" });
 
 tl.to(".hero-2-container", { opacity: 1, duration: 3 }, "<+=0.2");
+
 
 tl.fromTo(
   ".hero-2-container",
@@ -174,6 +194,95 @@ tl.fromTo(
        rgba(32, 31, 66, 0) 140.599vh)`,
     duration: 3,
   },
-  "<1.2" // starts 1.2 seconds before the previous animation
-  // he times from the start of the previous animation and since we're using 1.5s for the prev duration it's like 70% of the previous animation
+  "<1.2"
 );
+
+
+// Animación del menú
+document.addEventListener('DOMContentLoaded', () => {
+  const menuBtn = document.querySelector('.menu-btn');
+  const menuContainer = document.querySelector('#menu-container');
+  const closeBtn = document.querySelector('.menu-close-btn');
+
+  if (menuBtn && menuContainer && closeBtn) {
+    menuBtn.addEventListener('click', () => {
+      menuContainer.classList.toggle('active');
+      gsap.fromTo('.menu-container.active', {
+        x: '100%',
+        opacity: 0
+      }, {
+        x: '0%',
+        opacity: 1,
+        duration: 0.5,
+        ease: 'power2.out'
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      gsap.to('.menu-container.active', {
+        x: '100%',
+        opacity: 0,
+        duration: 0.5,
+        ease: 'power2.out',
+        onComplete: () => {
+          menuContainer.classList.remove('active');
+        }
+      });
+    });
+  } else {
+    console.error('No se encontraron los elementos del menú:', { menuBtn, menuContainer, closeBtn });
+  }
+
+  // Navegación de pestañas
+  document.querySelectorAll('.menu-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+      // Aquí puedes añadir lógica para actualizar el contenido según la pestaña
+    });
+  });
+
+  // Overlay de carga
+  const loadingOverlay = document.querySelector('#loading-overlay');
+  if (loadingOverlay) {
+    window.addEventListener('load', () => {
+      gsap.to('#loading-overlay', {
+        opacity: 0,
+        duration: 0.5,
+        onComplete: () => {
+          loadingOverlay.style.display = 'none';
+        }
+      });
+    });
+  } else {
+    console.warn('No se encontró el elemento #loading-overlay');
+  }
+
+  // Animación del logo VI
+  gsap.from('.vi-logo-animated', {
+    opacity: 0,
+    scale: 0.5,
+    duration: 1,
+    ease: 'power2.out',
+    scrollTrigger: {
+      trigger: '.hero-main-container',
+      start: 'top 80%',
+    },
+  });
+
+  // Evento del botón de tráiler
+  const trailerButton = document.querySelector('.trailer-button');
+  if (trailerButton) {
+    trailerButton.addEventListener('click', () => {
+      window.open('https://www.youtube.com/watch?v=trailer-url', '_blank');
+    });
+  }
+});
+
+document.querySelectorAll('.character').forEach(li => {
+  li.addEventListener('click', () => {
+    document.querySelectorAll('.character').forEach(x => x.classList.remove('active'));
+    li.classList.add('active');
+    // Aquí iría lógica para cambiar contenido según personaje
+  });
+});
