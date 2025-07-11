@@ -2,7 +2,8 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Pricedown', 'Arial Black', sans-serif;
+  font-family: 'ChaletComprime', Arial, sans-serif;
+
 }
 
 @font-face {
@@ -61,8 +62,16 @@ body {
 
 .rockstar-logo {
   width: 33px; /* Aumentado para mejor visibilidad */
-  height: auto;
+  height: auto;  
+  cursor: pointer;
 }
+
+
+.rockstar-logo:hover {
+  filter: brightness(1.4) sepia(1) hue-rotate(0deg) saturate(4);
+  transition: filter 0.3s ease;
+}
+
 
 .menu-btn {
   display: flex;
@@ -71,6 +80,10 @@ body {
   width: 25px;
   height: 17px;
   cursor: pointer;
+}
+.menu-btn:hover {
+  filter: brightness(1.4) sepia(1) hue-rotate(0deg) saturate(4);
+  transition: filter 0.3s ease;
 }
 
 .menu-line {
@@ -88,14 +101,16 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 999;
-  background: black;
+  z-index: 9999 !important;
+  background: rgba(18, 18, 18, 0.878);
 }
 .menu-item:hover {
-  color: #fff9cb; /* Amarillo */
+  color: #fff9cb !important;
 }
 .menu-container.active {
   display: flex;
+  background: linear-gradient(to bottom, #070707, #1a1722, #251d1d);
+
 }
 
 .menu-left-side {
@@ -116,6 +131,9 @@ body {
   color: white;
   display: flex;
   flex-direction: column;
+    z-index: 9999 !important;
+
+  
 }
 
 .menu-top-navigation {
@@ -123,53 +141,102 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 40px;
+ 
 }
 
 .menu-nav-tabs {
   display: flex;
   gap: 10px;
+  
 }
 
 .menu-item {
   cursor: pointer;
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  transition : color 0.3s ease;
-  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  transition: color 0.3s ease;
+  padding: 1rem 15px;
+  color: white;
 }
+
+/* Hover normal en todos los ítems que NO están activos */
+.menu-item:hover:not(.active) {
+  color: #fff9cb !important;
+}
+
 
 .menu-item.active {
-color: #fff9cb; 
-  border-bottom: 2px solid #fff9cb;
+  background: white;
+  color: black !important;
+  padding: 15px 26px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  
 }
-
 .character.active {
   color: #fff9cb;
 }
+
 .menu-close-btn {
-  width: 40px;
-  height: 40px;
-  position: relative;
+  width: 45px;
+  height: 45px;
+  background-color: #1a1722; /* Fondo oscuro personalizado */
+  border-radius: 50%;
   cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 40px;
+  border: 1px solid rgba(233, 233, 233, 0.088); /* Borde blanco opaco */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.04);
+  transition: all 0.3s ease;
 }
 
+.menu-close-btn:hover {
+  background-color: #221d2b;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.1);
+}
+
+/* Líneas de la X */
 .menu-close-line {
   position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 3px;
+  width: 16px !important; /* Puedes agrandarla aquí */
+  height: 2px;
   background-color: white;
-  transform-origin: center;
+  transition: transform 0.3s ease;
 }
 
 .menu-close-line:nth-child(1) {
-  transform: translateY(-50%) rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .menu-close-line:nth-child(2) {
-  transform: translateY(-50%) rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+
+.menu-btn .menu-line {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Mejorar la "X" del menú */
+.menu-btn.active .menu-line:nth-child(1),
+.menu-btn.active .menu-line:nth-child(2) {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+
+
+.menu-btn.active .menu-line:nth-child(1) {
+  transform: rotate(45deg) translateY(5px);
+}
+
+.menu-btn.active .menu-line:nth-child(2) {
+  transform: rotate(-45deg) translateY(-5px);
 }
 
 
@@ -186,23 +253,29 @@ color: #fff9cb;
   margin-top: 20px;
 }
 
-.characters-list .character{
-  margin-bottom: 1rem;
-  font-size: 2rem; /* tamaño que quieras */
+.characters-list .character {
+  font-size: 2.6rem; /* Aumenta el tamaño para que coincida */
+  font-weight: 780; /* Más gruesa */
+  line-height: 0.9;
+  letter-spacing: -3px;
+  color: white;
+  transition: color 0.3s ease;
 }
 
 .characters-list .character::before {
   content: '';
+  display: none;
   position: absolute;
   left: 0;
-  top: 0.6em; /* centra verticalmente */
+  top: 0.6em;
   width: 0.5rem;
   height: 0.5rem;
-  background-color: #ffb0c4; /* rosa GTA */
+  background-color: #ffb0c4;
   border-radius: 50%;
   opacity: 0.6;
   transition: opacity 0.3s;
 }
+
 
 .characters-list .character:hover::before,
 .characters-list .character.active::before {
@@ -218,13 +291,16 @@ color: #fff9cb;
   list-style: none;
 }
 
-/* Estilos para el botón de cerrar */
-.menu-close-btn {
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  position: relative;
+
+
+.menu-btn.active .menu-line:nth-child(1) {
+  transform: rotate(45deg) translateY(6px);
 }
+
+.menu-btn.active .menu-line:nth-child(2) {
+  transform: rotate(-45deg) translateY(-6px);
+}
+
 
 .menu-close-line {
   width: 100%;
@@ -258,8 +334,13 @@ color: #fff9cb;
   border-radius: 5px;
   cursor: pointer;
   margin-bottom: 0.5rem;
+  position: relative;
 
 }
+.vi-logo-animated.clicked-effect {
+  filter: brightness(1.4) sepia(1) hue-rotate(-40deg) saturate(2);
+}
+
 /* Estilos del logo VI y tráiler */
 .vi-logo-animated {
   width: 200px;
@@ -269,6 +350,10 @@ color: #fff9cb;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
+}
+.vi-logo-animated:hover {
+  filter: brightness(1.4) sepia(1) hue-rotate(-40deg) saturate(2);
+  transition: filter 0.3s ease;
 }
 
 .trailer-button-container {

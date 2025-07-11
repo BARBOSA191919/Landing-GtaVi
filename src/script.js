@@ -38,7 +38,7 @@ const tl = gsap.timeline({
     scrub: 2,
     pin: true,
     start: "top top",
-    end: "+=2000",
+    end: "+=6000",
     ease: "none",
   },
 });
@@ -198,39 +198,81 @@ tl.fromTo(
 );
 
 
-// Animación del menú
+
 document.addEventListener('DOMContentLoaded', () => {
   const menuBtn = document.querySelector('.menu-btn');
   const menuContainer = document.querySelector('#menu-container');
-  const closeBtn = document.querySelector('.menu-close-btn');
+  const menuCloseBtn = document.querySelector('#menu-close-btn');
 
-  if (menuBtn && menuContainer && closeBtn) {
+if (menuCloseBtn) {
+  menuCloseBtn.addEventListener('click', () => {
+    gsap.to(menuContainer, {
+      x: '100%',
+      opacity: 0,
+      duration: 0.6,
+      ease: 'power4.in',
+      onComplete: () => {
+        menuContainer.classList.remove('active');
+        menuBtn.classList.remove('active');
+      }
+    });
+  });
+}
+
+
+  if (menuBtn && menuContainer) {
+    // Abrir y cerrar el menú (toggle)
     menuBtn.addEventListener('click', () => {
-      menuContainer.classList.toggle('active');
-      gsap.fromTo('.menu-container.active', {
-        x: '100%',
-        opacity: 0
-      }, {
-        x: '0%',
-        opacity: 1,
-        duration: 0.5,
-        ease: 'power2.out'
-      });
+      const isActive = menuContainer.classList.contains('active');
+
+      if (!isActive) {
+        menuContainer.classList.add('active');
+        menuBtn.classList.add('active');
+
+        gsap.fromTo(menuContainer, {
+          x: '100%',
+          opacity: 0
+        }, {
+          x: '0%',
+          opacity: 1,
+          duration: 0.5,
+          ease: 'power2.out'
+        });
+      } else {
+        gsap.to(menuContainer, {
+          x: '100%',
+          opacity: 0,
+          duration: 0.6,
+          ease: 'power4.in',
+          onComplete: () => {
+            menuContainer.classList.remove('active');
+            menuBtn.classList.remove('active');
+          }
+        });
+      }
     });
 
-    closeBtn.addEventListener('click', () => {
-      gsap.to('.menu-container.active', {
-        x: '100%',
-        opacity: 0,
-        duration: 0.5,
-        ease: 'power2.out',
-        onComplete: () => {
-          menuContainer.classList.remove('active');
-        }
-      });
+    // Cerrar al hacer clic fuera del menú
+    document.addEventListener('click', (e) => {
+      if (
+        menuContainer.classList.contains('active') &&
+        !menuContainer.contains(e.target) &&
+        !menuBtn.contains(e.target)
+      ) {
+        gsap.to(menuContainer, {
+          x: '100%',
+          opacity: 0,
+          duration: 0.6,
+          ease: 'power4.in',
+          onComplete: () => {
+            menuContainer.classList.remove('active');
+            menuBtn.classList.remove('active');
+          }
+        });
+      }
     });
   } else {
-    console.error('No se encontraron los elementos del menú:', { menuBtn, menuContainer, closeBtn });
+    console.error('No se encontraron los elementos del menú:', { menuBtn, menuContainer });
   }
 
   // Navegación de pestañas
@@ -238,27 +280,18 @@ document.addEventListener('DOMContentLoaded', () => {
     item.addEventListener('click', () => {
       document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
       item.classList.add('active');
-      // Aquí puedes añadir lógica para actualizar el contenido según la pestaña
     });
   });
 
-  // Overlay de carga
-  const loadingOverlay = document.querySelector('#loading-overlay');
-  if (loadingOverlay) {
-    window.addEventListener('load', () => {
-      gsap.to('#loading-overlay', {
-        opacity: 0,
-        duration: 0.5,
-        onComplete: () => {
-          loadingOverlay.style.display = 'none';
-        }
-      });
+  // Personajes (resalta el seleccionado)
+  document.querySelectorAll('.character').forEach(li => {
+    li.addEventListener('click', () => {
+      document.querySelectorAll('.character').forEach(x => x.classList.remove('active'));
+      li.classList.add('active');
     });
-  } else {
-    console.warn('No se encontró el elemento #loading-overlay');
-  }
+  });
 
-  // Animación del logo VI
+  // Logo animado con ScrollTrigger
   gsap.from('.vi-logo-animated', {
     opacity: 0,
     scale: 0.5,
@@ -270,19 +303,29 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   });
 
-  // Evento del botón de tráiler
+  // Botón del tráiler
   const trailerButton = document.querySelector('.trailer-button');
   if (trailerButton) {
     trailerButton.addEventListener('click', () => {
       window.open('https://www.youtube.com/watch?v=trailer-url', '_blank');
     });
   }
+
+  // Overlay de carga (si existe)
+  const loadingOverlay = document.querySelector('#loading-overlay');
+  if (loadingOverlay) {
+    window.addEventListener('load', () => {
+      gsap.to('#loading-overlay', {
+        opacity: 0,
+        duration: 0.5,
+        onComplete: () => {
+          loadingOverlay.style.display = 'none';
+        }
+      });
+    });
+  }
 });
 
-document.querySelectorAll('.character').forEach(li => {
-  li.addEventListener('click', () => {
-    document.querySelectorAll('.character').forEach(x => x.classList.remove('active'));
-    li.classList.add('active');
-    // Aquí iría lógica para cambiar contenido según personaje
-  });
-});
+
+
+
