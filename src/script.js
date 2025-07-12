@@ -38,7 +38,7 @@ const tl = gsap.timeline({
     scrub: 2,
     pin: true,
     start: "top top",
-    end: "+=6000",
+    end: "+=9000",
     ease: "none",
   },
 });
@@ -197,8 +197,6 @@ tl.fromTo(
   "<1.2"
 );
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
   const menuBtn = document.querySelector('.menu-btn');
   const menuContainer = document.querySelector('#menu-container');
@@ -214,6 +212,7 @@ if (menuCloseBtn) {
       onComplete: () => {
         menuContainer.classList.remove('active');
         menuBtn.classList.remove('active');
+        document.body.classList.remove('menu-open'); // 👈 RESTAURA SCROLL
       }
     });
   });
@@ -228,6 +227,8 @@ if (menuCloseBtn) {
       if (!isActive) {
         menuContainer.classList.add('active');
         menuBtn.classList.add('active');
+        document.body.classList.add('menu-open'); // 👈 BLOQUEA SCROLL
+
 
         gsap.fromTo(menuContainer, {
           x: '100%',
@@ -326,6 +327,14 @@ if (menuCloseBtn) {
   }
 });
 
+// Nueva animación para la sección 3
+tl.set(".hero-3-container", { visibility: "visible" }, "<+=0.2");
 
 
-
+tl.to(".hero-3-image", {
+  opacity: 1,
+  filter: "blur(0px)", // Enfoca la imagen
+  transform: "scale(2.2)", // Efecto de acercamiento
+  duration: 1.5,
+  ease: "power2.out"
+}, "<");
