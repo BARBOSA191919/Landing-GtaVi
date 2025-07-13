@@ -57,12 +57,12 @@ tl.to(".console-logos", {
 
 // PASO 2: Ocultar logos y botón del tráiler al llegar a la segunda sección
 tl.to(
-  [".trailer-button-container", ".console-logos"], 
+  [".trailer-button-container", ".console-logos"],
   {
     opacity: 0,
     duration: 0.5,
     ease: "power1.out"
-  }, 
+  },
   "<+=0.5" // Medio segundo antes de la transición
 );
 
@@ -94,7 +94,7 @@ tl.to(
 tl.to(
   ".hero-main-container",
   {
-    backgroundSize: "28vh",
+    backgroundSize: "clamp(18vh, 22vw, 28vh)",
     duration: 1.5,
   },
   "<+=0.2"
@@ -173,7 +173,7 @@ tl.to(
 tl.set(".hero-1-container", { opacity: 0 });
 tl.set(".hero-2-container", { visibility: "visible" });
 
-tl.to(".hero-2-container", { opacity: 1, duration: 3 }, "<+=0.2");
+tl.to(".hero-2-container", { opacity: 1, duration: 4 }, "<+=0.3");
 
 
 tl.fromTo(
@@ -202,21 +202,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const menuContainer = document.querySelector('#menu-container');
   const menuCloseBtn = document.querySelector('#menu-close-btn');
 
-if (menuCloseBtn) {
-  menuCloseBtn.addEventListener('click', () => {
-    gsap.to(menuContainer, {
-      x: '100%',
-      opacity: 0,
-      duration: 0.6,
-      ease: 'power4.in',
-      onComplete: () => {
-        menuContainer.classList.remove('active');
-        menuBtn.classList.remove('active');
-        document.body.classList.remove('menu-open'); // 👈 RESTAURA SCROLL
-      }
+  if (menuCloseBtn) {
+    menuCloseBtn.addEventListener('click', () => {
+      gsap.to(menuContainer, {
+        x: '100%',
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power4.in',
+        onComplete: () => {
+          menuContainer.classList.remove('active');
+          menuBtn.classList.remove('active');
+          document.body.classList.remove('menu-open'); // 👈 RESTAURA SCROLL
+        }
+      });
     });
-  });
-}
+  }
 
 
   if (menuBtn && menuContainer) {
@@ -328,13 +328,34 @@ if (menuCloseBtn) {
 });
 
 // Nueva animación para la sección 3
-tl.set(".hero-3-container", { visibility: "visible" }, "<+=0.2");
+tl.set(".hero-3-container", { visibility: "visible" }, "<");
 
 
-tl.to(".hero-3-image", {
-  opacity: 1,
-  filter: "blur(0px)", // Enfoca la imagen
-  transform: "scale(2.2)", // Efecto de acercamiento
-  duration: 1.5,
-  ease: "power2.out"
-}, "<");
+tl.fromTo(
+  ".hero-3-image",
+  {
+    opacity: 0,
+    filter: "blur(20px)",
+    scale: 1,
+  },
+  {
+    opacity: 1,
+    filter: "blur(0px)",
+    scale: 1.5,
+    duration: 1.5,
+    ease: "power2.out",
+    onComplete: () => {
+      gsap.to(".hero-3-image", {
+        scale: 1,
+        duration: 1.5,
+        ease: "power2.out"
+      });
+    }
+  },
+  "<"
+);
+
+
+
+
+
