@@ -1,0 +1,143 @@
+/*  MENÚ RESPONSIVE  */
+@media (max-width: 768px) {
+    .menu-container.active {
+        flex-direction: column;
+    }
+
+    .menu-left-side {
+        width: 100%;
+        height: 40%;
+        order: 2;
+    }
+
+    .menu-right-side {
+        width: 100%;
+        height: 60%;
+        order: 1;
+        padding: clamp(20px, 5vw, 40px);
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-top-navigation {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    .menu-nav-tabs {
+        order: 2;
+        width: 100%;
+    }
+
+    .menu-close-btn {
+        order: 1;
+        align-self: flex-end;
+        margin-right: 0;
+    }
+}
+
+@media (min-width: 769px) {
+    .menu-left-side {
+        width: 50%;
+        height: 100%;
+    }
+
+    .menu-right-side {
+        width: 50%;
+        height: 100%;
+        padding: clamp(20px, 3vw, 40px);
+    }
+}
+
+/*  MEDIA QUERIES ESPECÍFICAS  */
+@media (max-width: 480px) {
+    .hero-main-container {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .hero-text-logo {
+        background-size: 35vw;
+        background-position: center;
+    }
+
+    .menu-item {
+        font-size: 0.75rem;
+        padding: 8px 12px;
+    }
+
+    .characters-list .character {
+        font-size: 1.5rem;
+        letter-spacing: -2px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .hero-text-logo {
+        background-size: 30vw;
+    }
+
+    .characters-list .character {
+        font-size: 2rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .hero-2-container {
+        max-width: 80%;
+        margin: 0 auto;
+    }
+
+    .console-logos svg {
+        width: 120px;
+    }
+}
+
+@media (min-width: 1025px) {
+    .hero-2-container {
+        margin: 0 auto;
+        max-width: 70%;
+        padding: 0;
+    }
+
+    .scroll-indicator {
+        bottom: 30px;
+    }
+
+    .hero-text {
+        font-size: 8rem;
+    }
+
+    .console-logos svg {
+        width: 170px;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .hero-3-image {
+        object-position: 80% center;
+    }
+}
+
+/*  LANDSCAPE MOBILE  */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero-text-content {
+        margin-top: 0;
+        transform: none;
+    }
+
+    .hero-text {
+        margin-top: 5%;
+        font-size: clamp(1.5rem, 6vw, 4rem);
+    }
+
+    .trailer-button-container {
+        bottom: 5px;
+    }
+
+    .scroll-indicator {
+        bottom: 5%;
+    }
+}

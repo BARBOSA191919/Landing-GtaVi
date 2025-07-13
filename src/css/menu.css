@@ -1,0 +1,192 @@
+/*  MENÚ HAMBURGUESA  */
+.menu-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: clamp(20px, 5vw, 25px);
+    height: clamp(14px, 4vw, 17px);
+    cursor: pointer;
+    transition: filter 0.3s ease;
+}
+
+.menu-btn:hover {
+    filter: brightness(1.4) sepia(1) hue-rotate(0deg) saturate(4);
+}
+
+.menu-line {
+    width: 100%;
+    height: clamp(4px, 1.5vw, 6px);
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.menu-btn.active .menu-line:nth-child(1) {
+    transform: rotate(45deg) translateY(clamp(4px, 1.5vw, 6px));
+}
+
+.menu-btn.active .menu-line:nth-child(2) {
+    transform: rotate(-45deg) translateY(clamp(-4px, -1.5vw, -6px));
+}
+
+/*  MENÚ OVERLAY  */
+.menu-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999 !important;
+    background: rgba(18, 18, 18, 0.878);
+}
+
+.menu-container.active {
+    display: flex;
+    background: linear-gradient(to bottom, #070707, #1a1722, #251d1d);
+}
+
+
+.menu-background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.menu-right-side {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    z-index: 9999 !important;
+}
+
+/*  NAVEGACIÓN DEL MENÚ */
+.menu-top-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: clamp(20px, 5vw, 40px);
+}
+
+
+.menu-nav-tabs {
+    display: flex;
+    gap: clamp(5px, 2vw, 10px);
+    flex-wrap: wrap;
+}
+
+.menu-item {
+    cursor: pointer;
+    font-size: clamp(0.75rem, 2vw, 0.9rem);
+    text-transform: capitalize;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    transition: color 0.3s ease;
+    padding: clamp(8px, 2vw, 15px) clamp(10px, 3vw, 15px);
+    color: white;
+    white-space: nowrap;
+}
+
+.menu-item:hover:not(.active) {
+    color: #fff9cb !important;
+}
+
+.menu-item.active {
+    background: white;
+    color: black !important;
+    padding: clamp(10px, 3vw, 15px) clamp(15px, 4vw, 26px);
+    border-radius: 30px;
+    font-size: clamp(0.75rem, 2vw, 0.9rem);
+    font-weight: 700;
+}
+
+/*  BOTÓN CERRAR MENÚ  */
+.menu-close-btn {
+    width: clamp(35px, 8vw, 45px);
+    height: clamp(35px, 8vw, 45px);
+    background-color: #1a1722;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: clamp(20px, 5vw, 40px);
+    border: 1px solid rgba(233, 233, 233, 0.088);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.04);
+    transition: all 0.3s ease;
+}
+
+.menu-close-btn:hover {
+    background-color: #221d2b;
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.1);
+}
+
+.menu-close-line {
+    position: absolute;
+    width: clamp(12px, 3vw, 16px);
+    height: 2px;
+    background-color: white;
+    transition: transform 0.3s ease;
+}
+
+.menu-close-line:nth-child(1) {
+    transform: rotate(45deg);
+}
+
+.menu-close-line:nth-child(2) {
+    transform: rotate(-45deg);
+}
+
+/*  CARACTERES DEL MENÚ */
+.characters-row {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.3;
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    margin-top: clamp(10px, 3vw, 20px);
+}
+
+.characters-list {
+    list-style: none;
+}
+
+.characters-list .character {
+    font-size: clamp(1.5rem, 5vw, 2.6rem);
+    font-weight: 780;
+    line-height: 0.9;
+    letter-spacing: -3px;
+    color: white;
+    transition: color 0.3s ease;
+    margin-bottom: clamp(5px, 2vw, 10px);
+}
+
+.character {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    padding: clamp(5px, 2vw, 10px);
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: clamp(5px, 2vw, 10px);
+    position: relative;
+}
+
+.character:hover,
+.character.active {
+    color: #fff9cb;
+}
+
+/*  LOGO VI ANIMADO  */
+.vi-logo-animated {
+    width: clamp(150px, 40vw, 200px);
+    max-width: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    transition: filter 0.3s ease;
+}
